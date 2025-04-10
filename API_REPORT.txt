@@ -1,0 +1,48 @@
+Auth APIs: 
+
+Register User:
+  URL: /api/auth/register
+  Method: POST
+  Description: Registers a new user.
+  Request Body (JSON)
+    {
+    "name": "John Doe",
+    "email": "john@example.com",
+    "password": "your_password"
+    }
+
+Login User:
+  URL: /api/auth/login
+  Method: POST
+  Description: Logs in a registered user and returns a JWT token.
+  Request Body (JSON)
+    {
+    "email": "john@example.com",
+    "password": "your_password"
+    }
+
+
+Task APIs:
+
+Get Tasks:
+  URL: /api/tasks/getTask
+  Method: GET
+  Description: Fetches all tasks. You can filter tasks by their status.
+  Query Parameters (Optional):
+      Parameter: filter	    	
+      Type: string	
+      Description: completed or pending
+
+Create Task:
+  URL: /api/tasks/createTask
+  Method: POST
+  Description: Creates a new task.
+  Request Body (JSON)
+      {
+      "title": "Buy groceries",
+      "description": "Milk, Bread, Eggs",
+      "status": "pending" // optional: defaults to "pending" if not "completed"
+      }
+
+
+
