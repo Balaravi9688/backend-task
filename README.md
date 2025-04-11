@@ -2,7 +2,7 @@
 
 ## Technologies Used
 - **Node.js** :  For building the server and handling API requests.
-- **Typescript**:  For building the server and handling API requests.
+- **Typescript**:  For building the server.
 - **Express.js**: For creating the API endpoints and handling routing.
 - **PostgreSQL**: For database management and storing data.
 
