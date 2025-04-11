@@ -1,4 +1,4 @@
-Auth APIs: 
+AUTH APIs: 
 
 Register User:
   URL: /api/auth/register
@@ -22,12 +22,14 @@ Login User:
     }
 
 
-Task APIs:
+
+TASK APIs:
 
 Get Tasks:
   URL: /api/tasks/getTask
   Method: GET
   Description: Fetches all tasks. You can filter tasks by their status.
+  Authorization: Bearer <your-jwt-token>
   Query Parameters (Optional):
       Parameter: filter	    	
       Type: string	
@@ -37,6 +39,7 @@ Create Task:
   URL: /api/tasks/createTask
   Method: POST
   Description: Creates a new task.
+  Authorization: Bearer <your-jwt-token>
   Request Body (JSON)
       {
       "title": "Buy groceries",
@@ -46,3 +49,21 @@ Create Task:
 
 
 
+CHAT API:
+
+Import:
+  URL: /api/chat/import
+  Method: POST
+  Description: Import Chat from Excel
+  Authorization: Bearer <your-jwt-token>
+  Content-Type: multipart/form-data
+  Request Body (Form Data)
+      Field: file
+      Type: File
+      file: (.xls format)
+
+  # Sample Excel Sheet:
+      message       	sender
+      Hello there!	   Alice
+      How are you?	    Bob
+  
