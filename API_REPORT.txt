@@ -31,7 +31,8 @@ Get Tasks:
   Description: Fetches all tasks. You can filter tasks by their status.
   Authorization: Bearer <your-jwt-token>
   Query Parameters (Optional):
-      Parameter: filter	    	
+      Parameter: filter
+      value: "pending" || "completed"
       Type: string	
       Description: completed or pending
 
