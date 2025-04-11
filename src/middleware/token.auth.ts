@@ -4,11 +4,17 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
-export const jwtTokenAuth: any = (req: Request, res: Response, next: NextFunction) => {
-  const authHeader = req.headers.authorization;
+export const jwtTokenAuth: any = (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  const authHeader: string | undefined = req.headers.authorization;
 
   if (!authHeader || !authHeader.startsWith("Bearer ")) {
-    return res.status(401).json({ message: "Unauthorized: No token provided." });
+    return res
+      .status(401)
+      .json({ message: "Unauthorized: No token provided." });
   }
 
   const token = authHeader.split(" ")[1];
