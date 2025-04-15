@@ -6,6 +6,7 @@ import { AuthRequestBody } from "../constant/auth.types";
 
 const JWT_SECRET: string = process.env.JWT_SECRET || "secret";
 
+// Register
 export const register: any = async (
   req: Request<{}, {}, AuthRequestBody>,
   res: Response
@@ -17,18 +18,19 @@ export const register: any = async (
       return res.status(400).json({ message: "All fields are required." });
     }
 
-    const existingUserQuery = await pool.query(
-      "SELECT * FROM users WHERE email = $1",
+    const [existingUsers]: any = await pool.query(
+      "SELECT * FROM users WHERE email = ?",
       [email]
     );
-    if (existingUserQuery.rows.length > 0) {
+
+    if (existingUsers.length > 0) {
       return res.status(409).json({ message: "User already exists." });
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
 
     await pool.query(
-      "INSERT INTO users (name, email, password, created_at) VALUES ($1, $2, $3, NOW())",
+      "INSERT INTO users (name, email, password, created_at) VALUES (?, ?, ?, NOW())",
       [name, email, hashedPassword]
     );
 
@@ -39,6 +41,7 @@ export const register: any = async (
   }
 };
 
+// Login
 export const login: any = async (
   req: Request<{}, {}, AuthRequestBody>,
   res: Response
@@ -46,10 +49,11 @@ export const login: any = async (
   try {
     const { email, password } = req.body;
 
-    const result = await pool.query("SELECT * FROM users WHERE email = $1", [
-      email,
-    ]);
-    const user = result.rows[0];
+    const [rows]: any = await pool.query(
+      "SELECT * FROM users WHERE email = ?",
+      [email]
+    );
+    const user = rows[0];
 
     if (!user) {
       return res.status(404).json({ message: "User not found." });

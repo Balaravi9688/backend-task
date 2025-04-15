@@ -4,17 +4,17 @@
 - **Node.js** :  For building the server and handling API requests.
 - **Typescript**:  For building the server.
 - **Express.js**: For creating the API endpoints and handling routing.
-- **PostgreSQL**: For database management and storing data.
+- **MYSQL**: For database management and storing data.
 
 
 
 ## Mandatory Fields to Add in backend .env
 
-- **PG_USER**= your_database_user
-- **PG_HOST**= your_database_host
-- **PG_DATABASE**= your_database_name
-- **PG_PASSWORD**= your_database_password
-- **PG_PORT**= your_database_port
+- **MYSQL_USER**= your_database_user
+- **MYSQL_HOST**= your_database_host
+- **MYSQL_DATABASE**= your_database_name
+- **MYSQL_PASSWORD**= your_database_password
+- **MYSQL_PORT**= your_database_port
 
 ## Steps to Run the Project
 

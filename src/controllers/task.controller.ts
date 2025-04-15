@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import { pool } from "../utils/db";
 import { TaskBody } from "../constant/task.auth";
 
+// GET TASKS (with optional filter)
 export const getTasks: any = async (
   req: Request,
   res: Response
@@ -13,11 +14,11 @@ export const getTasks: any = async (
     const params: string[] = [];
 
     if (filter === "completed" || filter === "pending") {
-      query += " WHERE status = $1";
+      query += " WHERE status = ?";
       params.push(filter);
     }
 
-    const { rows } = await pool.query(query, params);
+    const [rows]: any = await pool.query(query, params);
     return res.status(200).json({ tasks: rows });
   } catch (error) {
     console.error("Get tasks error:", error);
@@ -25,6 +26,7 @@ export const getTasks: any = async (
   }
 };
 
+// CREATE TASK
 export const createTask: any = async (
   req: Request<{}, {}, TaskBody>,
   res: Response
@@ -36,11 +38,15 @@ export const createTask: any = async (
       return res.status(400).json({ message: "Title is required." });
     }
 
+    if (!description.trim()) {
+      return res.status(400).json({ message: "Description is required." });
+    }
+
     const taskStatus: "pending" | "completed" =
       status === "completed" ? "completed" : "pending";
 
     await pool.query(
-      "INSERT INTO tasks (title, description, status) VALUES ($1, $2, $3)",
+      "INSERT INTO tasks (title, description, status) VALUES (?, ?, ?)",
       [title, description, taskStatus]
     );
 
